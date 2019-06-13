@@ -1,0 +1,29 @@
+pytz==2018.7  # https://github.com/stub42/pytz
+python-slugify==1.2.6  # https://github.com/un33k/python-slugify
+argon2-cffi==18.3.0  # https://github.com/hynek/argon2_cffi
+redis>=2.10.5  # https://github.com/antirez/redis
+# latest release of celery has a bug, using master branch instead.
+git+git://github.com/celery/celery@master#egg=celery
+# celery==4.2.1  # https://github.com/celery/celery
+flower==0.9.2  # https://github.com/mher/flower
+phonenumberslite==8.10.2 # https://github.com/daviddrysdale/python-phonenumbers
+django-safedelete==0.5.1 # https://github.com/makinacorpus/django-safedelete
+# Django
+# ------------------------------------------------------------------------------
+django==2.1.4  # https://www.djangoproject.com/
+django-environ==0.4.5  # https://github.com/joke2k/django-environ
+django-model-utils==3.1.2  # https://github.com/jazzband/django-model-utils
+django-redis==4.10.0  # https://github.com/niwinz/django-redis
+django-cors-headers==2.4.0 # https://github.com/ottoyiu/django-cors-headers
+django-phonenumber-field==2.1.0 # https://github.com/stefanfoulis/django-phonenumber-field
+django-money==0.14.3 # https://github.com/django-money/django-money
+django-suit==0.2.26 # http://github.com/darklow/django-suit
+django-auditlog==0.4.5 # https://github.com/jjkester/django-auditlog
+django-robots==3.1.0 # http://github.com/jazzband/django-robots
+django-partial-index==0.5.2 # https://github.com/mattiaslinnap/django-partial-index
+
+# Django REST Framework
+djangorestframework==3.9.0  # https://github.com/encode/django-rest-framework
+coreapi==2.3.3  # https://github.com/core-api/python-client
+djoser==1.1.5 # https://github.com/sunscrapers/djoser/
+djangorestframework-simplejwt==3.3 # https://github.com/davesque/django-rest-framework-simplejwt

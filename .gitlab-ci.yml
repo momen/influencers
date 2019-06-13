@@ -1,0 +1,43 @@
+stages:
+  - test
+  - build-image
+
+services:
+- docker:dind
+
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_HOST: tcp://localhost:2375
+  IMAGE_URL: 501127779088.dkr.ecr.us-east-1.amazonaws.com/influencers-backend:$CI_COMMIT_SHA
+
+test:
+  stage: test
+  image: python:3.7-alpine
+  services:
+    - postgres:10-alpine
+    - redis:5-alpine
+  variables:
+    # Using localhost here until this gets fixed https://gitlab.com/gitlab-org/gitlab-runner/issues/1042
+    DATABASE_URL: "postgresql://postgres@127.0.0.1:5432/influencers"
+    CELERY_BROKER_URL: "redis://127.0.0.1:6379/0"
+    POSTGRES_HOST: "postgres"
+    USE_DOCKER: "no"
+  script:
+    - apk update
+    - apk add --virtual build-deps gcc python3-dev musl-dev
+    - apk add postgresql-dev libffi-dev py-cffi postgresql-client git
+    - pip install -r requirements/local.txt
+    - py.test
+
+build:
+  image: registry.gitlab.arabyadscloud.com/arabyads/infrastructure:40
+  only:
+    - production
+    - staging
+  stage: build-image
+  before_script:
+    - chmod +x /entrypoint.sh
+    - sh /entrypoint.sh
+  script:
+    - docker build -f compose/production/django/Dockerfile -t $IMAGE_URL .
+    - docker push $IMAGE_URL
